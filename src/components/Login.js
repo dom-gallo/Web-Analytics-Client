@@ -1,11 +1,20 @@
 import {useState} from "react";
-
+import AuthenticationManager from "../util/AuthenticationManager";
 const Login = (props) => {
     const [AppUserEmail, setAppUserEmail] = useState("");
     const [AppUserPassword, setAppUserPassword] = useState("");
     const handeleLoginSubmit = (event) => {
+        let authManager = new AuthenticationManager();
         event.preventDefault();
         console.log(`Logging in with emailAddress=${AppUserEmail} and password=${AppUserPassword}`);
+
+        try{
+            console.log("Calling doLogin");
+            const authJWT = authManager.doLogin(AppUserEmail, AppUserPassword);
+        } catch (e) {
+            alert(e);
+        }
+
     }
     return (
         <>
