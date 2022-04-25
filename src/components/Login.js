@@ -11,6 +11,7 @@ const Login = (props) => {
         try{
             console.log("Calling doLogin");
             const authJWT = authManager.doLogin(AppUserEmail, AppUserPassword);
+            localStorage.setItem("authToken", authJWT);
         } catch (e) {
             alert(e);
         }
