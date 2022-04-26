@@ -3,6 +3,7 @@ import AuthenticationManager from "../util/AuthenticationManager";
 const Login = (props) => {
     const [AppUserEmail, setAppUserEmail] = useState("");
     const [AppUserPassword, setAppUserPassword] = useState("");
+
     const handeleLoginSubmit = (event) => {
         let authManager = new AuthenticationManager();
         event.preventDefault();
@@ -11,7 +12,13 @@ const Login = (props) => {
         try{
             console.log("Calling doLogin");
             const authJWT = authManager.doLogin(AppUserEmail, AppUserPassword);
+            if(authJWT === null || authJWT === "") {
+                console.log("No token was returned");
+                return;
+            }
             localStorage.setItem("authToken", authJWT);
+            console.log("Just set token")
+            console.log(localStorage.getItem("authToken"));
         } catch (e) {
             alert(e);
         }
