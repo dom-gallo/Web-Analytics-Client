@@ -11,15 +11,9 @@ class AuthenticationManager {
     // TODO:
     // Check for response codes
 
-    doLogin = (emailAddress, password) => {
-        let authToken = "";
-        console.log(`Email: ${emailAddress}\n Password: ${password}`)
-        const data = {
-                emailAddress: emailAddress,
-                password: password
-            },
-
-            options = {
+    doLogin = (emailAddress, password) =>{
+        return new Promise(async resolve => {
+            const options = {
                 method: "POST",
                 mode: "cors",
                 cache: "no-cache",
@@ -30,17 +24,23 @@ class AuthenticationManager {
                 referrerPolicy: "no-referrer",
                 body: JSON.stringify({emailAddress: emailAddress, password: password})
             };
-        fetch(this.loginUrl, options)
-            .then(data => {
-                return data.json();
-            }).then((parsedData) => {
-                console.log(parsedData.token);
-                if(parsedData.token != "" || parsedData.token === null){
-                    authToken = parsedData.token;
-                }
-        })
-        return authToken;
+            // let authToken = ``;
+            const response = await fetch(this.loginUrl, options);
+            const body = await response.json();
+            console.log(body);
+            resolve(body.token);
+        });
     }
 }
-
+// const options = {
+//     method: "POST",
+//     mode: "cors",
+//     cache: "no-cache",
+//     headers: {
+//         "Content-Type": "application/json"
+//     },
+//     redirect: "follow",
+//     referrerPolicy: "no-referrer",
+//     body: JSON.stringify({emailAddress: emailAddress, password: password})
+// };
 export default AuthenticationManager;

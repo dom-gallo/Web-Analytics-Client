@@ -23,12 +23,12 @@ const Signup = (props) => {
                         <div className="mt-4">
                             <div className="mt-4">
                                 <label htmlFor="email" className="block">Email</label>
-                                <input type="text" placeholder={"email"}
+                                <input type="text" placeholder={"Email"}
                                        className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"                                />
                             </div>
                             <div className="mt-4">
                                 <label htmlFor="block" className="block">Password</label>
-                                <input type="password" placeholder="password"
+                                <input type="password" placeholder="Password"
                                        className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"                                />
                             </div>
                             <div className="mt-4">

@@ -10,6 +10,9 @@ import Dashboard from "./components/Dashboard";
 
 import {useState, useEffect} from "react";
 
+// Should store token in Window.sessionStorage, token will get cleared whenever the browser is closed.
+
+
 function App() {
     // initialize authToken state
     const [authToken, setAuthToken] = useState("");

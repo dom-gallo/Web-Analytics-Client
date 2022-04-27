@@ -1,24 +1,34 @@
 import {useState} from "react";
 import AuthenticationManager from "../util/AuthenticationManager";
+import {useNavigate} from "react-router-dom";
+
+
+
+
 const Login = (props) => {
+
     const [AppUserEmail, setAppUserEmail] = useState("");
     const [AppUserPassword, setAppUserPassword] = useState("");
+    const navigate = useNavigate();
 
-    const handeleLoginSubmit = (event) => {
+
+    const handeleLoginSubmit = async (event) => {
         let authManager = new AuthenticationManager();
         event.preventDefault();
         console.log(`Logging in with emailAddress=${AppUserEmail} and password=${AppUserPassword}`);
 
-        try{
+        try {
             console.log("Calling doLogin");
-            const authJWT = authManager.doLogin(AppUserEmail, AppUserPassword);
-            if(authJWT === null || authJWT === "") {
+            const authJWT = await authManager.doLogin(AppUserEmail, AppUserPassword);
+            if (authJWT === null || authJWT === "") {
                 console.log("No token was returned");
                 return;
             }
             localStorage.setItem("authToken", authJWT);
             console.log("Just set token")
             console.log(localStorage.getItem("authToken"));
+            console.log(`Token in Login component is: ${authJWT}`)
+            navigate("/dashboard");
         } catch (e) {
             alert(e);
         }
@@ -47,7 +57,7 @@ const Login = (props) => {
                                     {/*<span className="text-xs tracking-wide text-red-600">Email field is required </span>*/}
                             </div>
                             <div className="mt-4">
-                                <label className="block">Password</label>
+                                <label className="block" htmlFor="password">Password</label>
                                     <input type="password" placeholder="Password"
                                            value={AppUserPassword}
                                            onChange={(event => {setAppUserPassword(event.target.value)})}
