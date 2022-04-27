@@ -9,6 +9,8 @@ const Navbar = (props) => {
         navigate('/signup');
     };
     useEffect(() => {
+
+
         if(localStorage.getItem("authToken")){
             setIsAuth(true);
         }

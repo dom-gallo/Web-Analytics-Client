@@ -5,7 +5,8 @@ const Dashboard = (props) => {
     const [authToken, setAuthToken] = useState("")
     const navigate = useNavigate();
     useEffect(() => {
-        if (props.authToken === null || props.authToken === "" || localStorage.getItem("authToken" === null || localStorage.getItem("authToken") === "")){
+        console.log("useEffect in dashboard ran");
+        if (localStorage.getItem("authToken" === null || localStorage.getItem("authToken") === "" || authToken === null || authToken === "")){
             navigate("/login");
         }
         setAuthToken(localStorage.getItem("authToken"));
