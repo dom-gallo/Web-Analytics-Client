@@ -1,9 +1,29 @@
 import {useState} from "react";
+import AuthenticationManager from "../util/AuthenticationManager";
 
 const Signup = (props) => {
 
-    const [user, setUSer] = useState({emailAddress: "", password: "", passwordConfirm: ""});
+    const [user, setUSer] = useState({emailAddress: "", password: "", passwordConfirm: "", domain: ""});
 
+    let appUser = {
+        emailAddress : "",
+        password: "",
+        passwordConfirm: "",
+        domain : ""
+    }
+    const handleRegisterSubmit = async (event) => {
+        event.preventDefault();
+        console.log()
+
+        // This should be a toast notification or red warning under passwords
+        if(appUser.password != appUser.passwordConfirm){
+            alert("Passwords do not match");
+            return;
+        }
+        let aManager = new AuthenticationManager();
+        let response = await aManager.doRegister(appUser.emailAddress, appUser.password, appUser.passwordConfirm, appUser.emailAddress);
+        console.log(`Register response : ${response}`);
+    }
     return (
         <>
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -21,23 +41,38 @@ const Signup = (props) => {
                         console.log("Signup button pressed");
                     }}>
                         <div className="mt-4">
-                            <div className="mt-4">
-                                <label htmlFor="email" className="block">Email</label>
-                                <input type="text" placeholder={"Email"}
-                                       className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"                                />
-                            </div>
-                            <div className="mt-4">
-                                <label htmlFor="block" className="block">Password</label>
-                                <input type="password" placeholder="Password"
-                                       className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"                                />
-                            </div>
-                            <div className="mt-4">
-                                <label htmlFor="block" className="block">Confirm Password</label>
-                                <input type="password" placeholder="Confirm your password"
-                                       className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"                                />
-                            </div>
+
+                            <form autoComplete="new-password">
+                                <div className="mt-4">
+                                    <label htmlFor="email" className="block" autofocus autoComplete="off" >Email</label>
+                                    <input type="text" placeholder={"Email"} autoComplete="off"
+                                           onChange={ (event) => {appUser.emailAddress = event.target.value}}
+                                           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"                                />
+                                </div>
+                                <div className="mt-4">
+                                    <label htmlFor="block" className="block" autoComplete="off">Base Domain</label>
+                                    <input type="text" placeholder="Domain: 'example.com'"
+                                           onChange={ (event) => {appUser.domain = event.target.value}}
+                                           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"                                />
+                                </div>
+                                <div className="mt-4">
+                                    <label htmlFor="block" className="block">Password</label>
+                                    <input type="password" placeholder="Password"
+                                           onChange={ (event) => {appUser.password = event.target.value}}
+                                           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"                                />
+                                </div>
+
+                                <div className="mt-4">
+                                    <label htmlFor="block" className="block">Confirm Password</label>
+                                    <input type="password" placeholder="Confirm your password"
+                                           onChange={(event) => {appUser.passwordConfirm = event.target.value}}
+                                           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"                                />
+                                </div>
+                            </form>
+
                             <div className="flex items-baseline justify-between">
                                 <button
+                                    onClick={ (event) => {handleRegisterSubmit(event)}}
                                     className="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Continue
                                 </button>
                                 <a onClick={(event => {
