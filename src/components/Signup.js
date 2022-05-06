@@ -21,7 +21,7 @@ const Signup = (props) => {
             return;
         }
         let aManager = new AuthenticationManager();
-        let response = await aManager.doRegister(appUser.emailAddress, appUser.password, appUser.passwordConfirm, appUser.emailAddress);
+        let response = await aManager.doRegister(appUser.emailAddress, appUser.password, appUser.passwordConfirm, appUser.domain);
         console.log(`Register response : ${response}`);
     }
     return (
