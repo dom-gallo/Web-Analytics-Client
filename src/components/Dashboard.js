@@ -12,16 +12,19 @@ const Dashboard = (props) => {
         if (localStorage.getItem("authToken") == null || localStorage.getItem("authToken") == "") {
             return navigate("/login");
         }
-        setAuthToken(localStorage.getItem("authToken"));
-        let pageviewService = new PageviewService();
 
-        console.log("Getting pageviews")
-        async function fetchData() {
-            pageviewService.setAuthToken(authToken)
+        const token = localStorage.getItem("authToken")
+
+        setAuthToken(token);
+
+        let pageviewService = new PageviewService();
+        async function fetchData(t) {
+            pageviewService.setAuthToken(t)
+            console.log("Setting authtoken for pageview service to:" + authToken)
             const data = await pageviewService.getAll();
             console.log(data)
         }
-        fetchData();
+        fetchData(token);
     }, []);
 
     // useEffect( () => {
