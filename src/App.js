@@ -30,7 +30,8 @@ function App() {
     return (
       <Router>
           <div className="App">
-              <Navbar/>
+              {/* commented out to work on dashboard*/}
+              {/*<Navbar/>*/}
               <div className="content">
                   <Routes>
                       <Route path={"/"} element={<Home />}/>

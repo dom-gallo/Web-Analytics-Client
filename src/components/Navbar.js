@@ -10,7 +10,6 @@ const Navbar = (props) => {
     };
     useEffect(() => {
 
-
         if(localStorage.getItem("authToken")){
             setIsAuth(true);
         }
