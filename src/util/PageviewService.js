@@ -1,8 +1,10 @@
+
 class PageviewService {
 
     constructor(authToken) {
         this.pageviewURL = "http://localhost:8080/api/v1/pageview"
         this.authToken = authToken;
+        this.navigate = Navigator;
     }
     setAuthToken = (token) => {
         this.authToken = token;
@@ -24,6 +26,11 @@ class PageviewService {
                referrerPolicy: "no-referrer"
            };
            const response = await fetch(`${this.pageviewURL}/all`, options);
+           if(response.status === 403){
+               console.log("No longer authorized. Please relogin");
+               localStorage.clear();
+               navigator("/login");
+           }
            const body = await response.json();
            resolve(body);
         });

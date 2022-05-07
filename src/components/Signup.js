@@ -1,5 +1,6 @@
 import {useState} from "react";
 import AuthenticationManager from "../util/AuthenticationManager";
+import Navbar from "./Navbar";
 
 const Signup = (props) => {
 
@@ -26,6 +27,9 @@ const Signup = (props) => {
     }
     return (
         <>
+            <div>
+                <Navbar />
+            </div>
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
                 <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg">
                     <div className="flex justify-center">
